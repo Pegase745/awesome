@@ -1,0 +1,3 @@
+[submodule "dust"]
+	path = themes/dust
+	url = https://github.com/mikar/awesome-themes/tree/master/dust
