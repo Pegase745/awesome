@@ -1,9 +1,6 @@
 [submodule "vicious"]
 	path = vicious
 	url = http://git.sysphere.org/vicious/
-[submodule "obvious"]
-	path = obvious
-	url = https://github.com/hoelzro/obvious.git
 [submodule "apw"]
 	path = apw
 	url = https://github.com/seniorivn/apw
