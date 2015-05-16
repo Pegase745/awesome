@@ -159,26 +159,15 @@ function get_battery_remaining_time()
     return str 
 end
 
-batterytooltip = awful.tooltip ({ objects = { batterywidget }, })
-batterytooltip:set_text (get_battery_remaining_time())
+batterytooltip = awful.tooltip({ objects = { batterywidget }, })
 
--- VPN
-
-vpnwidget = wibox.widget.textbox()
-vpnwidget:set_text(" VPN: N/A ")
-vpnwidgettimer = timer({ timeout = 5 })
-vpnwidgettimer:connect_signal("timeout",
+batterywidgettimer = timer({ timeout = 10 })
+batterywidgettimer:connect_signal("timeout",
   function()
-    status = io.popen("ps -aux | grep 'openvpn' | wc -l", "r")
-    if status:read() == "1" then
-        vpnwidget:set_markup(" <span color='#FF0000'>VPN: OFF</span> ")                     
-    else
-        vpnwidget:set_markup(" <span color='#00FF00'>VPN: ON</span> ")
-    end
-    status:close()    
+	batterytooltip:set_text(get_battery_remaining_time())
   end    
 )    
-vpnwidgettimer:start()
+batterywidgettimer:start()
 
 -- Separators
 
@@ -263,8 +252,6 @@ for s = 1, screen.count() do
     right_layout:add(cpuwidget)
     right_layout:add(spr)
     right_layout:add(memwidget)
-    right_layout:add(spr)
-    right_layout:add(vpnwidget)
     right_layout:add(spr)
     right_layout:add(batterywidget)
     right_layout:add(spr)
