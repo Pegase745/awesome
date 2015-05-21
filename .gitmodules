@@ -1,6 +1,3 @@
 [submodule "vicious"]
 	path = vicious
 	url = http://git.sysphere.org/vicious/
-[submodule "apw"]
-	path = apw
-	url = https://github.com/seniorivn/apw

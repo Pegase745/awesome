@@ -337,9 +337,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, 	     "p", function() menubar.show() end),
 
     -- Audio
-    -- awful.key({ }, "XF86AudioLowerVolume", function () couth.notifier:notify(couth.alsa:setVolume('Master','3dB-')) end),
-    -- awful.key({ }, "XF86AudioRaiseVolume", function () couth.notifier:notify(couth.alsa:setVolume('Master','3dB+')) end),
-    -- awful.key({ }, "XF86AudioMute",        function () couth.notifier:notify(couth.alsa:setVolume('Master','toggle')) end),
+    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -D pulse sset Master 5%-") end),
+    awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -D pulse sset Master 5%+") end),
+    awful.key({ }, "XF86AudioMute",        function () awful.util.spawn("amixer -D pulse sset Master toggle") end),
 
     -- Screen lock
     awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("xscreensaver-command -lock") end)
