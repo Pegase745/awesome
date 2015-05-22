@@ -339,10 +339,13 @@ globalkeys = awful.util.table.join(
     -- Menubar
     awful.key({ modkey }, 	     "p", function() menubar.show() end),
 
+    -- (Launch xev and on key press, fetch the keymap code for binding)
+
     -- Audio
     awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -D pulse sset Master 5%-") end),
     awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -D pulse sset Master 5%+") end),
     awful.key({ }, "XF86AudioMute",        function () awful.util.spawn("amixer -D pulse sset Master toggle") end),
+    awful.key({ }, "XF86AudioMicMute",     function () awful.util.spawn("amixer -D pulse sset Mic toggle") end),
 
     -- Brightness (apt-get install xbacklight)
     awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 15") end),
@@ -350,6 +353,14 @@ globalkeys = awful.util.table.join(
 
     -- Screenshot (apt-get install scrot)
     awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/screenshots/ 2>/dev/null'") end),
+
+    -- Special Keys
+    -- awful.key({ }, "XF86Display",    function () awful.util.spawn("automatic xrandr setup") end),
+    -- awful.key({ }, "XF86WLAN",       function () awful.util.spawn("cut/uncut wifi") end),
+    -- awful.key({ }, "XF86Tools",      function () awful.util.spawn("open settings i guess") end),
+    -- awful.key({ }, "XF86Search",     function () awful.util.spawn("search for something") end),
+    -- awful.key({ }, "XF86LaunchA",    function () awful.util.spawn("launch an app") end),
+    awful.key({ }, "XF86MyComputer", function () awful.util.spawn("gnome-open /home/pegase/") end),
 
     -- Screen lock
     awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("xscreensaver-command -lock") end)
