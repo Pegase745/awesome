@@ -10,6 +10,7 @@ require("awful.autofocus")
 local wibox 	= require("wibox")
 local vicious 	= require("vicious")
 local assault   = require("widgets.assault")
+require("widgets.volume")
 
 -- Theme handling library
 local beautiful = require("beautiful")
@@ -255,6 +256,8 @@ for s = 1, screen.count() do
     right_layout:add(spr)
     right_layout:add(batterywidget)
     right_layout:add(spr)
+    right_layout:add(volume_widget)
+    right_layout:add(spr)
     right_layout:add(clockwidget)
 
     -- Now bring it all together (with the tasklist in the middle)
@@ -344,6 +347,9 @@ globalkeys = awful.util.table.join(
     -- Brightness (apt-get install xbacklight)
     awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 15") end),
     awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 15") end),
+
+    -- Screenshot (apt-get install scrot)
+    awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/screenshots/ 2>/dev/null'") end),
 
     -- Screen lock
     awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("xscreensaver-command -lock") end)
