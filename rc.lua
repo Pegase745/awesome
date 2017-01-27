@@ -11,6 +11,7 @@ local wibox 	= require("wibox")
 local vicious 	= require("vicious")
 local assault   = require("widgets.assault")
 require("widgets.volume")
+require("widgets.kbdcfg")
 
 -- Theme handling library
 local beautiful = require("beautiful")
@@ -45,11 +46,12 @@ end
 --{{---| Theme |----------------------------------------------------------------
 
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+-- theme.wallpaper = "/home/pegase/Perso/Pictures/mile.jpg"
 
 --{{---| Variables |------------------------------------------------------------
 
 modkey 		= "Mod4"
-terminal 	= "x-terminal-emulator"
+terminal 	= "x-terminal-emulator -x tmux"
 editor 		= os.getenv("EDITOR") or "editor"
 editor_cmd 	= terminal .. " -e " .. editor
 
@@ -258,6 +260,8 @@ for s = 1, screen.count() do
     right_layout:add(spr)
     right_layout:add(volume_widget)
     right_layout:add(spr)
+    right_layout:add(kbdcfg.widget)
+    right_layout:add(spr)
     right_layout:add(clockwidget)
 
     -- Now bring it all together (with the tasklist in the middle)
@@ -337,7 +341,7 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
     -- Menubar
-    awful.key({ modkey }, 	     "p", function() menubar.show() end),
+    -- awful.key({ modkey }, 	     "p", function() menubar.show() end),
 
     -- (Launch xev and on key press, fetch the keymap code for binding)
 
@@ -352,7 +356,7 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 15") end),
 
     -- Screenshot (apt-get install scrot)
-    awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/screenshots/ 2>/dev/null'") end),
+    awful.key({ }, "Print", function () awful.util.spawn("scrot -u -e 'gimp $f'") end),
 
     -- Special Keys
     -- awful.key({ }, "XF86Display",    function () awful.util.spawn("automatic xrandr setup") end),
@@ -371,7 +375,9 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
+    -- awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
+    awful.key({ modkey,           }, "o",      function (c) awful.client.movetoscreen(c,c.screen-1) end),
+    awful.key({ modkey,           }, "p",      function (c) awful.client.movetoscreen(c,c.screen+1) end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",
         function (c)
@@ -556,4 +562,5 @@ run_once("nm-applet",nil)
 awful.util.spawn_with_shell("xscreensaver -no-splash")
 
 -- Work special screens
-awful.util.spawn_with_shell("xrandr --output DP2 --auto --left-of eDP1 && xrandr --output HDMI1 --auto --left-of DP2")
+-- awful.util.spawn_with_shell("xrandr --output DP-2 --auto --left-of eDP-1 && xrandr --output HDMI-1 --auto --left-of DP-2")
+awful.util.spawn_with_shell("xrandr --output eDP-1 --auto --left-of DP-2")
